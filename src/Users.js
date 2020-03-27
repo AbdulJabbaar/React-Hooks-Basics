@@ -21,19 +21,22 @@ function Users() {
     fetchUsers();
   }, []);
 
+  function handelSelection(user) {
+    setSelectedUser(user);
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
       </header>
-      {selectedUser ? <div>
-        <button onClick={() => setSelectedUser(null)}><h4>Back to list</h4></button>
-        <UserDetails SelecteUser={selectedUser} />
-      </div> :
+      {selectedUser ?
+        <UserDetails SelecteUser={selectedUser} backToList={handelSelection} />
+        :
         <ul>
           {users.map(data => (
             <li key={data.id} className="App-link" onClick={() => {
-              setSelectedUser(data);
+              handelSelection(data);
             }}>
               <h3>{data.first_name} {data.last_name}</h3>
             </li>
